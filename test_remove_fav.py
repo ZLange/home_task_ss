@@ -12,7 +12,7 @@ def browser():
     driver.quit()
 
 
-def test_add_favorite(browser):
+def test_remove_fav(browser):
     url = 'https://www.ss.com/en'
     browser.get(url)
 
@@ -22,28 +22,16 @@ def test_add_favorite(browser):
     sleep(2)
     assert 'Cars' in browser.title, 'Wrong section!'
 
-    # browser.find_element_by_xpath("//select[@name='opt[35]']/option[text()='Manual']").click()
-    browser.find_element_by_xpath("//select[@name='opt[32]']/option[text()='Coupe']").click()
+    browser.find_element_by_xpath("//select[@name='opt[35]']/option[text()='Manual']").click()
+    # browser.find_element_by_xpath("//select[@name='opt[32]']/option[text()='Coupe']").click()
     sleep(5)
-
-    min_price = browser.find_element_by_id("f_o_8_min")
-    min_price.send_keys('3000')
-    # minprice = browser.find_element_by_xpath("//table[@id='filter_tbl']/tbody/tr/td[1]/table//tr/td[1]/span/input[@name='topt[8][min]']").get_attribute("value")
-    # print('*************min***************', minprice)
-
-    max_price = browser.find_element_by_id("f_o_8_max")
-    max_price.send_keys('20000')
-    # maxprice = browser.find_element_by_xpath("//table[@id='filter_tbl']/tbody/tr/td[1]/table//tr/td[1]/span/input[@name='topt[8][max]']").get_attribute("value")
-    # print('***************max*************', maxprice)
 
     browser.find_element_by_xpath("//table[@id='filter_tbl']/tbody/tr/td[2]/input[@value='Search']").click()
 
     browser.find_element_by_xpath("//form[@id='filter_frm']/table[2]/tbody/tr[7]").click()
     sleep(5)
 
-    # price = browser.find_element_by_xpath("//div[@id='msg_div_msg']/table[2]//td[@class='ads_price']//span[@class='ads_price']").get_attribute("innertext")
-    # print('***************price*************', price)
-    # assert minprice <= price <= maxprice  # need to redo this one?
+    # browser.execute_script("window.scrollTo(0, Y)")
 
     browser.find_element_by_xpath("/html//a[@id='a_fav']").click()  # add to favorites
     sleep(5)
@@ -56,6 +44,14 @@ def test_add_favorite(browser):
     memo_row = len(browser.find_elements_by_xpath("//form[@id='filter_frm']/table/tbody/tr"))
 
     assert int(memo_row) > 1, "No ad's was added!"
+
+    browser.find_element_by_xpath("//form[@id='filter_frm']/table[1]/tbody/tr[2]//input[@name='mid[]']").click()
+    browser.find_element_by_xpath("/html//a[@id='del_selected_a']").click()
+    sleep(5)
+
+    assert int(memo_row) < 1, "No ad's was removed!"
+
+
 
 
 
