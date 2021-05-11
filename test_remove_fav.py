@@ -2,7 +2,6 @@ import pytest
 from time import sleep
 
 from selenium.webdriver import Chrome
-from selenium.webdriver.common.keys import Keys
 
 @pytest.fixture
 def browser():
@@ -11,6 +10,16 @@ def browser():
     yield driver
     driver.quit()
 
+"""
+Web browser: Chrome
+Smoke tests for ss.com
+Tests validates:
+- opening of ss.com page
+- opening of ad
+- adding add to favorites
+- opening memos tab 
+- remove latest added ad is in memos
+"""
 
 def test_remove_fav(browser):
     url = 'https://www.ss.com/en'
@@ -22,8 +31,8 @@ def test_remove_fav(browser):
     sleep(2)
     assert 'Cars' in browser.title, 'Wrong section!'
 
-    # browser.find_element_by_xpath("//select[@name='opt[35]']/option[text()='Manual']").click()
-    browser.find_element_by_xpath("//select[@name='opt[32]']/option[text()='Coupe']").click()
+    browser.find_element_by_xpath("//select[@name='opt[35]']/option[text()='Manual']").click()
+    # browser.find_element_by_xpath("//select[@name='opt[32]']/option[text()='Coupe']").click()
     sleep(5)
 
     browser.find_element_by_xpath("//table[@id='filter_tbl']/tbody/tr/td[2]/input[@value='Search']").click()
@@ -49,7 +58,7 @@ def test_remove_fav(browser):
     browser.find_element_by_xpath("/html//a[@id='del_selected_a']").click()
     sleep(5)
 
-    assert int(memo_row) < 1, "No ad's was removed!"
+    assert int(memo_row) < 2, "No ad's was removed!"
 
 
 
