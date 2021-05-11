@@ -22,8 +22,8 @@ def test_remove_fav(browser):
     sleep(2)
     assert 'Cars' in browser.title, 'Wrong section!'
 
-    browser.find_element_by_xpath("//select[@name='opt[35]']/option[text()='Manual']").click()
-    # browser.find_element_by_xpath("//select[@name='opt[32]']/option[text()='Coupe']").click()
+    # browser.find_element_by_xpath("//select[@name='opt[35]']/option[text()='Manual']").click()
+    browser.find_element_by_xpath("//select[@name='opt[32]']/option[text()='Coupe']").click()
     sleep(5)
 
     browser.find_element_by_xpath("//table[@id='filter_tbl']/tbody/tr/td[2]/input[@value='Search']").click()

@@ -33,9 +33,3 @@ def test_remove_fav(browser):
     browser.find_element_by_xpath("//div[@id='main']//a[@href='/en/transport/cars/mercedes/clk-class/']").click()
     sleep(2)
     assert 'CLK-class' in browser.title, 'Wrong section!'
-
-    browser.find_element_by_xpath("//form[@id='top_form']/table//tr/td[2]//select[@name='sid']").click()
-    sleep(2)
-
-    # browser.find_element_by_xpath("//form[@id='top_form']/table//tr/td[2]//select[@name='sid']").click()
-    # sleep(2)
